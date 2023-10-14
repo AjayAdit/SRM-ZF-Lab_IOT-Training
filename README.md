@@ -1,1 +1,1 @@
-# SRM ZF-Lab_IOT-Training Supplement
+ZF SRM Center of Excellence for Smart Factory Initiative "IoT Trainer Kit"
