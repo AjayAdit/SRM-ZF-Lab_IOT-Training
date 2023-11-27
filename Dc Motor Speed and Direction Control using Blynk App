@@ -1,0 +1,56 @@
+#define BLYNK_TEMPLATE_ID "TMPL38EtRwnxA"
+#define BLYNK_TEMPLATE_NAME "DRDO IOT Demo"
+#define BLYNK_AUTH_TOKEN "otcBS6x9p0Q6R8rH8oDiN6TFql84Jbnn" // Blynk Server Credential
+
+#include <WiFi.h>
+#include <WiFiClient.h>
+#include <BlynkSimpleEsp32.h> // Required Header Files
+
+char auth[] = BLYNK_AUTH_TOKEN;
+
+
+char ssid[] = "POCO C31";
+char pass[] = "paaru@123";
+
+
+int IN3 = 12;
+int IN4 = 13;
+int enPin = 14; // Pin-out from ESP32
+
+// Setting PWM properties
+const int freq = 30000;
+const int pwmChannel = 0;
+const int resolution = 8;
+int dutyCycle = 200;
+
+BLYNK_WRITE(V1) { 
+  digitalWrite(IN4, param.asInt());
+  digitalWrite(IN3, param.asInt());
+}// Direction Control of Motor using a pair of on/off Button in BLYNK
+
+BLYNK_WRITE(V0) {  
+  int s0 = param.asInt();
+  analogWrite(enPin,s0);
+
+}// Speed Control of Motor using a slider Button in BLYNK app
+
+
+void setup()
+{
+  
+  Serial.begin(115200);
+
+
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT); // Defining Pins
+
+
+  Blynk.begin(auth, ssid, pass, "blynk.cloud", 8080);
+  //Function to start a connection with BLYNK
+}
+
+void loop()
+{
+  Blynk.run();
+}
+  
